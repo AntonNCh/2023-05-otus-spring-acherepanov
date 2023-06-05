@@ -5,15 +5,23 @@ import com.opencsv.exceptions.CsvValidationException;
 import me.cherepanov.spring.domain.Question;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionsPoolCSVReader implements QuestionsPool {
-    private final ArrayList<Question> questions = new ArrayList<Question>();
-    String fileName;
+    private final List<Question> questions = new ArrayList<Question>();
+
+    private final String fileName;
+
     private InputStream csvInputStream;
+
 
     QuestionsPoolCSVReader(final String fileName) {
         this.fileName = fileName;
@@ -62,7 +70,7 @@ public class QuestionsPoolCSVReader implements QuestionsPool {
     }
 
     @Override
-    public ArrayList<Question> getAll() {
+    public List<Question> getAll() {
         return questions;
     }
 }

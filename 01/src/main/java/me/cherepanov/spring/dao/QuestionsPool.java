@@ -2,11 +2,11 @@ package me.cherepanov.spring.dao;
 
 import me.cherepanov.spring.domain.Question;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface QuestionsPool {
 
     boolean init();
 
-    ArrayList<Question> getAll();
+    List<Question> getAll();
 }

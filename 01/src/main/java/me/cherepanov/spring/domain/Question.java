@@ -3,6 +3,7 @@ package me.cherepanov.spring.domain;
 public class Question {
 
     private final String question;
+
     private final String[] options;
 
     private final String answer;

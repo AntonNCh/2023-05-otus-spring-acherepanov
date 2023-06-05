@@ -5,8 +5,8 @@ import me.cherepanov.spring.domain.Question;
 import java.io.PrintStream;
 
 public class PrintConsoleService implements PrinterService {
-
     private final PrintStream out;
+
     private final QuestionsService questionsService;
 
     PrintConsoleService(QuestionsService questionsService) {
