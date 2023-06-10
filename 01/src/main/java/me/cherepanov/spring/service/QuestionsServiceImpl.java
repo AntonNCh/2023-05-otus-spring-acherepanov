@@ -1,24 +1,22 @@
 package me.cherepanov.spring.service;
 
-import me.cherepanov.spring.dao.QuestionsPool;
+import me.cherepanov.spring.dao.QuestionDAO;
 import me.cherepanov.spring.domain.Question;
+
+import java.util.List;
 
 public class QuestionsServiceImpl implements QuestionsService {
 
-    private final QuestionsPool questionsPool;
+    private final QuestionDAO questionsPool;
 
-    public QuestionsServiceImpl(QuestionsPool dao) {
+    public QuestionsServiceImpl(QuestionDAO dao) {
         this.questionsPool = dao;
     }
 
 
     @Override
-    public int getSize() {
-        return questionsPool.getAll().size();
+    public List<Question> getAllQuestions() {
+        return questionsPool.getAll();
     }
 
-    @Override
-    public Question getByNumber(int index) {
-        return questionsPool.getAll().get(index);
-    }
 }

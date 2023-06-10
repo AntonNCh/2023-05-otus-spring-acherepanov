@@ -4,9 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.4</version>
+    </parent>
+
+
     <groupId>ru.otus.cherepanov</groupId>
     <artifactId>spring-01-hw</artifactId>
     <version>1.0</version>
+
+
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.target>17</maven.compiler.target>
@@ -17,6 +27,9 @@
         <checkstyle.version>10.9.1</checkstyle.version>
         <checkstyle.config.url>https://raw.githubusercontent.com/OtusTeam/Spring/master/checkstyle.xml
         </checkstyle.config.url>
+
+
+        <start-class>me.cherepanov.spring.Main</start-class>
     </properties>
 
     <dependencies>
@@ -52,6 +65,15 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>

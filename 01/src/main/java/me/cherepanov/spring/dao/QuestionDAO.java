@@ -4,9 +4,8 @@ import me.cherepanov.spring.domain.Question;
 
 import java.util.List;
 
-public interface QuestionsPool {
+public interface QuestionDAO {
 
-    boolean init();
 
     List<Question> getAll();
 }

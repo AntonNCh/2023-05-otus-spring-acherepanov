@@ -1,17 +1,18 @@
 package me.cherepanov.spring.domain;
 
+import java.util.List;
+
 public class Question {
 
     private final String question;
 
-    private final String[] options;
+    private final List<AnswerOption> optionsList;
 
-    private final String answer;
 
-    public Question(String question, String[] options, String answer) {
+    public Question(final String question, final List<AnswerOption> optionsList) {
         this.question = question;
-        this.options = options;
-        this.answer = answer;
+        this.optionsList = optionsList;
+
     }
 
 
@@ -19,11 +20,8 @@ public class Question {
         return question;
     }
 
-    public String[] getOptions() {
-        return options;
+    public List<AnswerOption> getOptions() {
+        return optionsList;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
 }

@@ -15,9 +15,14 @@
         <constructor-arg index="0" ref="questionPoolDao"/>
     </bean>
 
+    <bean id="printService" class="me.cherepanov.spring.service.ConsolePrinterService">
 
-    <bean id="printService" class="me.cherepanov.spring.service.PrintConsoleService">
+    </bean>
+
+
+    <bean id="testService" class="me.cherepanov.spring.service.TestServiceImpl">
         <constructor-arg index="0" ref="questionsService"/>
+        <constructor-arg index="1" ref="printService"/>
     </bean>
 
 </beans>
