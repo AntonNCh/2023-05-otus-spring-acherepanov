@@ -1,21 +1,21 @@
 package me.cherepanov.tests;
 
-import me.cherepanov.spring.domain.Question;
-import org.junit.jupiter.api.Assertions;
+import me.cherepanov.spring.dao.CSVReaderQuestionDAO;
+import me.cherepanov.spring.service.QuestionsServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DisplayName("Question Test")
+@DisplayName("Question Service Test")
 public class QuestionServiceTest {
 
-    @DisplayName("Question Init Test")
+    @DisplayName("Question file test")
     @Test
-    void ServiceTest() {
-
-        Question question = new Question("Text", null);
-        assertEquals("Text", question.getQuestion());
+    void serviceTest() {
+        CSVReaderQuestionDAO questionsPoolCSVReader = new CSVReaderQuestionDAO("questions.csv");
+        QuestionsServiceImpl questionsService = new QuestionsServiceImpl(questionsPoolCSVReader);
+        assertEquals(5, questionsService.getAllQuestions().size());
 
     }
 }

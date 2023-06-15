@@ -21,11 +21,11 @@ public class TestServiceImpl implements TestService {
 
         List<Question> questions = questionsService.getAllQuestions();
         for (Question question : questions) {
-            publishQuery(question);
+            publishQuestion(question);
         }
     }
 
-    private void publishQuery(Question question) {
+    private void publishQuestion(Question question) {
         String questionText = question.getQuestion();
         printService.print(questionText);
         publishOptions(question);

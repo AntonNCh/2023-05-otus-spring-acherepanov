@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--    <bean id="" class="me.cherepanov.spring.dao.QuestionsPoolCSVReader">-->
+    <!--    <bean id="" class="me.cherepanov.spring.dao.CSVReaderQuestionDAO">-->
     <!--    </bean>-->
 
-    <bean id="questionPoolDao" class="me.cherepanov.spring.dao.QuestionsPoolCSVReader">
+    <bean id="questionPoolDao" class="me.cherepanov.spring.dao.CSVReaderQuestionDAO">
         <constructor-arg index="0" value="questions.csv"/>
     </bean>
 

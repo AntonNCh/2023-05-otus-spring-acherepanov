@@ -12,14 +12,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionsPoolCSVReader implements QuestionDAO {
+public class CSVReaderQuestionDAO implements QuestionDAO {
 
 
     private final String fileName;
 
     private List<Question> questions = null;
 
-    QuestionsPoolCSVReader(final String fileName) {
+    public CSVReaderQuestionDAO(final String fileName) {
         this.fileName = fileName;
 
     }
@@ -28,40 +28,18 @@ public class QuestionsPoolCSVReader implements QuestionDAO {
     public List<Question> getAll() {
         if (questions == null) {
             try {
-                questions = new ArrayList<Question>();
-                init();
+                questions = new ArrayList<>();
+                try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+                     InputStreamReader filereader = new InputStreamReader(stream);
+                     CSVReader csvReader = new CSVReader(filereader)) {
+                    readQuestions(csvReader);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
         return questions;
     }
-
-
-    private boolean init() throws Exception {
-        boolean result = false;
-        CSVReader csvReader = null;
-        InputStreamReader filereader = null;
-        InputStream stream = null;
-        try {
-            stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
-            filereader = new InputStreamReader(stream);
-            csvReader = new CSVReader(filereader);
-            readQuestions(csvReader);
-        } finally {
-            if (csvReader != null) {
-                csvReader.close();
-            }
-            if (filereader != null) {
-                filereader.close();
-            }
-            if (stream != null) {
-                stream.close();
-            }
-        }
-        return result;
-    }
-
 
     private void readQuestions(CSVReader csvReader) throws IOException, CsvValidationException {
         String[] questionRecord;
