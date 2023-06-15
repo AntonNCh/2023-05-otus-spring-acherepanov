@@ -7,16 +7,16 @@ import java.util.List;
 
 public class QuestionsServiceImpl implements QuestionsService {
 
-    private final QuestionsDAO questionsPool;
+    private final QuestionsDAO questionsDAO;
 
     public QuestionsServiceImpl(QuestionsDAO dao) {
-        this.questionsPool = dao;
+        this.questionsDAO = dao;
     }
 
 
     @Override
     public List<Question> getAllQuestions() {
-        return questionsPool.getAll();
+        return questionsDAO.getAll();
     }
 
 }
