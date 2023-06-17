@@ -17,7 +17,7 @@ public class CSVReaderQuestionsDAO implements QuestionsDAO {
 
     private final String fileName;
 
-    private List<Question> questions = null;
+
 
     public CSVReaderQuestionsDAO(final String fileName) {
         this.fileName = fileName;
@@ -26,22 +26,21 @@ public class CSVReaderQuestionsDAO implements QuestionsDAO {
 
     @Override
     public List<Question> getAll() {
-        if (questions == null) {
+
             try {
-                questions = new ArrayList<>();
+
                 try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
                      InputStreamReader filereader = new InputStreamReader(stream);
                      CSVReader csvReader = new CSVReader(filereader)) {
-                    readQuestions(csvReader);
+                   return readQuestions(csvReader);
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }
-        return questions;
     }
 
-    private void readQuestions(CSVReader csvReader) throws IOException, CsvValidationException {
+    private List<Question> readQuestions(CSVReader csvReader) throws IOException, CsvValidationException {
+        List<Question> questions = new ArrayList<>();
         String[] questionRecord;
         while ((questionRecord = csvReader.readNext()) != null) {
             if (questionRecord.length > 3) {
@@ -49,7 +48,7 @@ public class CSVReaderQuestionsDAO implements QuestionsDAO {
                 String ritghtAnswer = questionRecord[questionRecord.length - 1];
                 String[] answers = ArrayUtils.subarray(questionRecord, 1,
                         questionRecord.length - 1);
-                List<AnswerOption> options = new ArrayList<AnswerOption>();
+                List<AnswerOption> options = new ArrayList<>();
                 for (int i = 0; i < answers.length; i++) {
                     options.add(new AnswerOption(answers[i], answers[i].startsWith(ritghtAnswer)));
                 }
@@ -60,6 +59,7 @@ public class CSVReaderQuestionsDAO implements QuestionsDAO {
                 throw new IllegalStateException("Illegal line formats. Test Skipped...");
             }
         }
+        return questions;
     }
 
 }
