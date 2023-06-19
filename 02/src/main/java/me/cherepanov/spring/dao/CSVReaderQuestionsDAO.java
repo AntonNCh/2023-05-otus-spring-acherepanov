@@ -18,7 +18,6 @@ public class CSVReaderQuestionsDAO implements QuestionsDAO {
     private final String fileName;
 
 
-
     public CSVReaderQuestionsDAO(final String fileName) {
         this.fileName = fileName;
 
@@ -27,16 +26,16 @@ public class CSVReaderQuestionsDAO implements QuestionsDAO {
     @Override
     public List<Question> getAll() {
 
-            try {
+        try {
 
-                try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
-                     InputStreamReader filereader = new InputStreamReader(stream);
-                     CSVReader csvReader = new CSVReader(filereader)) {
-                   return readQuestions(csvReader);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+                 InputStreamReader filereader = new InputStreamReader(stream);
+                 CSVReader csvReader = new CSVReader(filereader)) {
+                return readQuestions(csvReader);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<Question> readQuestions(CSVReader csvReader) throws IOException, CsvValidationException {
