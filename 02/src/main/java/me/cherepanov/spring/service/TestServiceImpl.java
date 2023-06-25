@@ -3,12 +3,15 @@ package me.cherepanov.spring.service;
 import me.cherepanov.spring.domain.AnswerOption;
 import me.cherepanov.spring.domain.Person;
 import me.cherepanov.spring.domain.Question;
+import me.cherepanov.spring.domain.TestResult;
 import me.cherepanov.spring.service.io.InputService;
 import me.cherepanov.spring.service.io.PrintService;
 import me.cherepanov.spring.service.io.QuestionsService;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TestServiceImpl implements TestService {
 
     private final QuestionsService questionsService;
@@ -17,7 +20,6 @@ public class TestServiceImpl implements TestService {
 
     private final InputService inputService;
 
-    private Person person;
 
     public TestServiceImpl(QuestionsService questionsService, PrintService printService, InputService inputService) {
         this.questionsService = questionsService;
@@ -27,33 +29,29 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void startTest() {
-        authantication();
-        processTheTest();
-        printTestResult(person);
+        Person person = authantication();
+        TestResult testResult = new TestResult(person, printService);
+        processTheTest(testResult);
+        testResult.printTestResult();
     }
 
-    private void processTheTest() {
+    private void processTheTest(TestResult testResult) {
         List<Question> questions = questionsService.getAllQuestions();
         questions.forEach(question -> {
             publishQuestion(question);
             String answer = inputUsersAnswer();
             if (checkAnswer(answer, question.getOptions())) {
-                person.increaseScore();
+                testResult.increaseScore();
             }
         });
     }
 
-    private void authantication() {
+    private Person authantication() {
         printService.print("Please introduce yourself:");
         String personName = inputService.read();
-        person = new Person(personName);
+        return new Person(personName);
     }
 
-    private void printTestResult(Person person) {
-        printService.print("");
-        printService.print("%s!".formatted(person.getName()));
-        printService.print("Finally, the result is -- %d".formatted(person.getTestResult()));
-    }
 
     private boolean checkAnswer(String answer, List<AnswerOption> options) {
         if ("".equals(answer)) {

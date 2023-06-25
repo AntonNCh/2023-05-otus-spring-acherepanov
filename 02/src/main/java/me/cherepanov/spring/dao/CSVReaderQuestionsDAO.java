@@ -5,6 +5,8 @@ import com.opencsv.exceptions.CsvValidationException;
 import me.cherepanov.spring.domain.AnswerOption;
 import me.cherepanov.spring.domain.Question;
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,27 +14,24 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CSVReaderQuestionsDAO implements QuestionsDAO {
 
 
     private final String fileName;
 
 
-    public CSVReaderQuestionsDAO(final String fileName) {
+    public CSVReaderQuestionsDAO(@Value("${questionary.file.name}") final String fileName) {
         this.fileName = fileName;
 
     }
 
     @Override
     public List<Question> getAll() {
-
-        try {
-
-            try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
-                 InputStreamReader filereader = new InputStreamReader(stream);
-                 CSVReader csvReader = new CSVReader(filereader)) {
-                return readQuestions(csvReader);
-            }
+        try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+             InputStreamReader filereader = new InputStreamReader(stream);
+             CSVReader csvReader = new CSVReader(filereader)) {
+            return readQuestions(csvReader);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

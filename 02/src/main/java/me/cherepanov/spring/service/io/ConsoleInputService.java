@@ -1,9 +1,14 @@
 package me.cherepanov.spring.service.io;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Scanner;
 
+@Service
 public class ConsoleInputService implements InputService {
 
+
+    private final Scanner sc = new Scanner(System.in);
 
     public ConsoleInputService() {
     }
@@ -11,7 +16,6 @@ public class ConsoleInputService implements InputService {
     @Override
     public String read() {
 
-        Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         return str;
     }

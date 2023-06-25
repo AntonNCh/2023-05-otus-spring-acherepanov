@@ -4,7 +4,7 @@ public class AnswerOption {
 
     private final String optionText;
 
-    private final Boolean isCorrect;
+    private final boolean isCorrect;
 
     public AnswerOption(String Text, boolean isCorrect) {
         this.optionText = Text;
