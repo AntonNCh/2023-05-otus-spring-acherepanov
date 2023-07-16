@@ -20,10 +20,12 @@ public class TestServiceImpl implements TestService {
     private final PrintService printService;
 
     private final InputService inputService;
+
     private ResultService resultService;
 
 
-    public TestServiceImpl(QuestionsService questionsService, PrintService printService, InputService inputService, ResultService resultService) {
+    public TestServiceImpl(QuestionsService questionsService, PrintService printService, InputService inputService,
+                           ResultService resultService) {
         this.questionsService = questionsService;
         this.printService = printService;
         this.inputService = inputService;
