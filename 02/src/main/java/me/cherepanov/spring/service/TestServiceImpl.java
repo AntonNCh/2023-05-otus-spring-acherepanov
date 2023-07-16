@@ -7,6 +7,7 @@ import me.cherepanov.spring.domain.TestResult;
 import me.cherepanov.spring.service.io.InputService;
 import me.cherepanov.spring.service.io.PrintService;
 import me.cherepanov.spring.service.io.QuestionsService;
+import me.cherepanov.spring.service.io.ResultService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,23 +20,25 @@ public class TestServiceImpl implements TestService {
     private final PrintService printService;
 
     private final InputService inputService;
+    private ResultService resultService;
 
 
-    public TestServiceImpl(QuestionsService questionsService, PrintService printService, InputService inputService) {
+    public TestServiceImpl(QuestionsService questionsService, PrintService printService, InputService inputService, ResultService resultService) {
         this.questionsService = questionsService;
         this.printService = printService;
         this.inputService = inputService;
+        this.resultService = resultService;
     }
 
     @Override
     public void startTest() {
         Person person = authantication();
-        TestResult testResult = new TestResult(person, printService);
-        processTheTest(testResult);
-        testResult.printTestResult();
+        TestResult testResult = processTheTest(person);
+        resultService.printTestResult(testResult);
     }
 
-    private void processTheTest(TestResult testResult) {
+    private TestResult processTheTest(Person person) {
+        TestResult testResult = new TestResult(person);
         List<Question> questions = questionsService.getAllQuestions();
         questions.forEach(question -> {
             publishQuestion(question);
@@ -44,6 +47,7 @@ public class TestServiceImpl implements TestService {
                 testResult.increaseScore();
             }
         });
+        return testResult;
     }
 
     private Person authantication() {

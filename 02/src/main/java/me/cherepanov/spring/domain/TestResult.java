@@ -1,28 +1,26 @@
 package me.cherepanov.spring.domain;
 
-import me.cherepanov.spring.service.io.PrintService;
-
 public class TestResult {
 
-    private int testResult = 0;
+    private int score = 0;
 
     private final Person person;
 
-    private final PrintService printService;
 
-    public TestResult(Person person, PrintService printService) {
+    public TestResult(Person person) {
         this.person = person;
-        this.printService = printService;
+    }
+
+    public String getName() {
+        return person.getName();
     }
 
 
     public void increaseScore() {
-        testResult++;
+        score++;
     }
 
-    public void printTestResult() {
-        printService.print("");
-        printService.print("%s!".formatted(person.getName()));
-        printService.print("Finally, the result is -- %d".formatted(testResult));
+    public int getScore() {
+        return score;
     }
 }
