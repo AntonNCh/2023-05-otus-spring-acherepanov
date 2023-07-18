@@ -24,7 +24,7 @@ public class QuestionServiceTest {
     @Test
     void questionsService() throws IOException {
         QuestionsDAO questionDAO = mock(QuestionsDAO.class);
-        List<Question> allQuestions = readQuestions();
+        List<Question> allQuestions = prepareQuestions();
         when(questionDAO.getAll()).thenReturn(allQuestions);
 
         QuestionsServiceImpl questionsService = new QuestionsServiceImpl(questionDAO);
@@ -33,7 +33,7 @@ public class QuestionServiceTest {
     }
 
 
-    private List<Question> readQuestions() {
+    private List<Question> prepareQuestions() {
         List<Question> questions = new ArrayList<>();
         List<AnswerOption> options = new ArrayList<>();
         options.add(new AnswerOption(ANSWER_1, true));

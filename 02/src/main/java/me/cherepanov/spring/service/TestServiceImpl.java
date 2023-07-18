@@ -34,7 +34,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void startTest() {
-        Person person = authantication();
+        Person person = authentication();
         TestResult testResult = processTheTest(person);
         resultService.printTestResult(testResult);
     }
@@ -52,7 +52,7 @@ public class TestServiceImpl implements TestService {
         return testResult;
     }
 
-    private Person authantication() {
+    private Person authentication() {
         printService.print("Please introduce yourself:");
         String personName = inputService.read();
         return new Person(personName);
