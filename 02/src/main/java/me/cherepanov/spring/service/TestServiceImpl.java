@@ -4,10 +4,7 @@ import me.cherepanov.spring.domain.AnswerOption;
 import me.cherepanov.spring.domain.Person;
 import me.cherepanov.spring.domain.Question;
 import me.cherepanov.spring.domain.TestResult;
-import me.cherepanov.spring.service.io.InputService;
-import me.cherepanov.spring.service.io.PrintService;
-import me.cherepanov.spring.service.io.QuestionsService;
-import me.cherepanov.spring.service.io.ResultService;
+import me.cherepanov.spring.service.io.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
